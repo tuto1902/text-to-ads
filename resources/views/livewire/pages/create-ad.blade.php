@@ -12,9 +12,12 @@
                     Ad Information
                 </h1>
                 <form wire:submit="store" class="mt-6 flex flex-col space-y-4">
+
+                    <x-input-error :messages="$errors->all()" />
+
                     <div class="space-y-2 w-full max-w-md flex flex-col">
-                        <x-input-label value="Ad Copy" />
-                        <x-textarea wire:model="form.ad_copy" />
+                        <x-input-label value="Ad Copy" required />
+                        <x-textarea wire:model="form.ad_copy" {{ $errors->has('ad_copy') ? 'hasError' : '' }} />
                         <div class="self-end flex items-center">
                             <div wire:loading.flex wire:target="preview" class="flex pr-4 items-center">
                                 <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -26,9 +29,11 @@
                                 <span x-text="$wire.isPlaying ? 'Stop' : 'Play'"></span>
                             </x-secondary-button>
                         </div>
+                        @error('ad_copy')
+                        @enderror
                     </div>
                     <div class="space-y-2 w-full max-w-md flex flex-col">
-                        <x-input-label value="Business Type" />
+                        <x-input-label value="Business Type" required />
                         <x-select-dropdown wire:model="form.business_type_id">
                             <option value="">Choose your business type...</option>
                             @foreach($businessTypes as $businessType)
@@ -37,7 +42,7 @@
                         </x-select-dropdown>
                     </div>
                     <div class="space-y-2 w-full max-w-md flex flex-col">
-                        <x-input-label value="Radio Station" />
+                        <x-input-label value="Radio Station" required />
                         <x-select-dropdown wire:model.change="form.radio_station_id">
                             <option value="">Choose a radio station...</option>
                             @foreach($radioStations as $radioStation)
@@ -47,7 +52,7 @@
                     </div>
                     <template x-if="$wire.form.radio_station_id">
                         <div class="space-y-2 w-full max-w-md flex flex-col">
-                            <x-input-label value="Service" />
+                            <x-input-label value="Service" required />
                             @foreach($radioStationServices as $service_id => $description)
                             <label class="flex items-center gap-2 font-medium text-sm">
                                 <input type="radio" name="service_id" value="{{ $service_id }}" wire:model.change="form.service_id">
@@ -58,7 +63,7 @@
                     </template>
                     <template x-if="$wire.form.radio_station_id && $wire.form.service_id">
                         <div class="space-y-2 w-full max-w-md flex flex-col">
-                            <x-input-label value="Date" />
+                            <x-input-label value="Date" required />
                             <x-select-dropdown wire:model.change="form.scheduled_at">
                                 <option value="">Select a date...</option>
                                 @foreach($dates as $date => $option)
@@ -70,7 +75,7 @@
                     <template x-if="$wire.form.radio_station_id && $wire.form.service_id && $wire.form.scheduled_at">
                         <div class="flex items-start justify-between">
                             <div class="space-y-2 w-full max-w-md flex flex-col">
-                                <x-input-label value="Time Slots" />
+                                <x-input-label value="Time Slots" required />
                                 @foreach($timeSlots as $rawTime => $formattedTime)
                                 <label class="flex items-center gap-2 font-medium text-sm">
                                     <input type="checkbox" name="time_slots" value="{{ $rawTime }}" wire:click="updateCheckoutQuantity" wire:model="form.selected_time_slots">
