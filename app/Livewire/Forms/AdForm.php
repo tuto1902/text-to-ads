@@ -3,7 +3,9 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Ad;
+use App\Models\TimeSlot;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -21,7 +23,6 @@ class AdForm extends Form
     public function rules(): array
     {
         return [
-            'audio_file' => 'required',
             'ad_copy' => 'required',
             'business_type_id' =>[ 'required' ],
             'radio_station_id' =>[ 'required' ],
@@ -44,9 +45,29 @@ class AdForm extends Form
 
     public function store()
     {
-        Auth::user()->ads()->create([
-            $this->validate()
-        ]);
+        $this->validate();
+        $ad = null;
+        DB::transaction(function () {
+            $ad = Ad::create([
+                'ad_copy' => $this->ad_copy,
+                'business_type_id' => $this->business_type_id,
+                'radio_station_id' => $this->radio_station_id,
+                'service_id' => $this->service_id,
+                'scheduled_at' => $this->scheduled_at,
+                'audio_file' => $this->audio_file,
+                'user_id' => Auth::user()->id
+            ]);
+
+            $timeSlots = [];
+            foreach ($this->selected_time_slots as $time) {
+                $timeSlots[] = new TimeSlot([ 'time' => $time ]);
+            }
+
+            $ad->timeSlots()->saveMany($timeSlots);
+
+        });
+
+        return $ad;
     }
 
 }

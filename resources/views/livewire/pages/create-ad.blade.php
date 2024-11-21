@@ -17,7 +17,7 @@
 
                     <div class="space-y-2 w-full max-w-md flex flex-col">
                         <x-input-label value="Ad Copy" required />
-                        <x-textarea wire:model="form.ad_copy" {{ $errors->has('ad_copy') ? 'hasError' : '' }} />
+                        <x-textarea wire:model="form.ad_copy" />
                         <div class="self-end flex items-center">
                             <div wire:loading.flex wire:target="preview" class="flex pr-4 items-center">
                                 <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
