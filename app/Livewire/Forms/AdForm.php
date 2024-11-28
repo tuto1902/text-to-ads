@@ -47,7 +47,7 @@ class AdForm extends Form
     {
         $this->validate();
         $ad = null;
-        DB::transaction(function () {
+        DB::transaction(function () use (&$ad) {
             $ad = Ad::create([
                 'ad_copy' => $this->ad_copy,
                 'business_type_id' => $this->business_type_id,
@@ -55,7 +55,8 @@ class AdForm extends Form
                 'service_id' => $this->service_id,
                 'scheduled_at' => $this->scheduled_at,
                 'audio_file' => $this->audio_file,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'status' => 'pending'
             ]);
 
             $timeSlots = [];

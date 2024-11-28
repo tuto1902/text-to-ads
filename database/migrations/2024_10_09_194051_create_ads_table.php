@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('scheduled_at');
             $table->text('ad_copy');
             $table->string('audio_file')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

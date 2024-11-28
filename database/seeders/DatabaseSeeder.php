@@ -61,7 +61,8 @@ class DatabaseSeeder extends Seeder
             'business_type_id' => $businessType->id,
             'ad_copy' => 'test ad copy',
             'audio_file' => 'speech.mp3',
-            'scheduled_at' => Carbon::now()->format('Y-m-d')
+            'scheduled_at' => Carbon::now()->format('Y-m-d'),
+            'status' => 'paid'
         ]);
 
         TimeSlot::create([

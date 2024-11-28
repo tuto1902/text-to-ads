@@ -20,8 +20,13 @@ class Checkout extends Component
 
     public function render()
     {
-        $checkout = Auth::user()->checkout(['pri_01jas35te8naek9r2zswkh46zp' => $this->ad->timeSlots->count()])
-            ->returnTo(route('dashboard'));
+        $checkout = Auth::user()->checkout([
+            'pri_01jas35te8naek9r2zswkh46zp' => $this->ad->timeSlots->count(),
+        ])
+        ->customData([
+            'ad_id' => $this->ad->id
+        ])
+        ->returnTo(route('dashboard'));
 
         return view('livewire.pages.checkout', ['checkout' => $checkout]);
     }

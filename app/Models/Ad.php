@@ -18,7 +18,8 @@ class Ad extends Model
         'service_id',
         'scheduled_at',
         'ad_copy',
-        'audio_file'
+        'audio_file',
+        'status'
     ];
 
     protected $casts = [
