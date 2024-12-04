@@ -10,6 +10,10 @@ class TimeSlot extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'time'
+    ];
+
     protected $casts = [
         'time' => 'datetime'
     ];

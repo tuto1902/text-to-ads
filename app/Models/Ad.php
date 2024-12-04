@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,11 +19,13 @@ class Ad extends Model
         'service_id',
         'scheduled_at',
         'ad_copy',
-        'audio_file'
+        'audio_file',
+        'status'
     ];
 
     protected $casts = [
         'scheduled_at' => 'date',
+        'status' => OrderStatus::class
     ];
 
     public function user(): BelongsTo

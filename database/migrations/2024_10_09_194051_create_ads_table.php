@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreignId('business_type_id')->constrained();
             $table->date('scheduled_at');
             $table->text('ad_copy');
-            $table->string('audio_file');
+            $table->string('audio_file')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
