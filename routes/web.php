@@ -2,7 +2,7 @@
 
 use App\Livewire\Pages\Checkout;
 use App\Livewire\Pages\CreateAd;
-use App\Livewire\Pages\ListOrders;
+use App\Livewire\Pages\ListAds;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -23,8 +23,8 @@ Route::get('/ads/checkout/{ad}', Checkout::class)
     ->middleware(['auth'])
     ->name('ads.checkout');
 
-Route::get('/orders', ListOrders::class)
+Route::get('/ads', ListAds::class)
     ->middleware(['auth'])
-    ->name('orders');
+    ->name('ads');
 
 require __DIR__.'/auth.php';

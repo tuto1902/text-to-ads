@@ -26,7 +26,7 @@ class Checkout extends Component
         ->customData([
             'ad_id' => $this->ad->id
         ])
-        ->returnTo(route('dashboard'));
+        ->returnTo(route('ads'));
 
         return view('livewire.pages.checkout', ['checkout' => $checkout]);
     }
